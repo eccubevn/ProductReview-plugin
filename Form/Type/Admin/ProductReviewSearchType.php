@@ -10,8 +10,13 @@
 
 namespace Plugin\ProductReview\Form\Type\Admin;
 
-use Eccube\Application;
+use Eccube\Common\EccubeConfig;
+use Eccube\Form\Type\Master\ProductStatusType;
+use Eccube\Form\Type\Master\SexType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -21,20 +26,22 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ProductReviewSearchType extends AbstractType
 {
+
     /**
-     * @var Application
+     * @var EccubeConfig
      */
-    private $app;
+    protected $eccubeConfig;
 
     /**
      * ProductReviewSearchType constructor.
      *
-     * @param object $app
+     * @param EccubeConfig $eccubeConfig
      */
-    public function __construct($app)
+    public function __construct(EccubeConfig $eccubeConfig)
     {
-        $this->app = $app;
+        $this->eccubeConfig = $eccubeConfig;
     }
+
 
     /**
      * {@inheritdoc}
@@ -45,66 +52,64 @@ class ProductReviewSearchType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $config = $this->app['config'];
+        $config = $this->eccubeConfig;
         $builder
-            ->add('multi', 'text', array(
-                'label' => '投稿者名・投稿者URL',
+            ->add('multi', TextType::class, array(
+                'label' => 'plugin.admin.product_review.search.inputsearch.placeholder',
                 'required' => false,
                 'constraints' => array(
-                    new Assert\Length(array('max' => $config['ltext_len'])),
+                    new Assert\Length(array('max' => $config['eccube_stext_len'])),
                 ),
             ))
-            ->add('product_name', 'text', array(
-                'label' => '商品名',
+            ->add('product_name', TextType::class, array(
+                'label' => 'plugin.front.product_review.product.name',
                 'required' => false,
                 'constraints' => array(
-                    new Assert\Length(array('max' => $config['stext_len'])),
+                    new Assert\Length(array('max' => $config['eccube_stext_len'])),
                 ),
             ))
-            ->add('product_code', 'text', array(
-                'label' => '商品コード',
+            ->add('product_code', TextType::class, array(
+                'label' => 'plugin.admin.product_review.form.product.code',
                 'required' => false,
                 'constraints' => array(
-                    new Assert\Length(array('max' => $config['stext_len'])),
+                    new Assert\Length(array('max' => $config['eccube_stext_len'])),
                 ),
             ))
-            ->add('sex', 'sex', array(
-                'label' => '性別',
+            ->add('sex', SexType::class, array(
+                'label' => 'plugin.admin.product_review.form.sex',
                 'required' => false,
                 'expanded' => true,
                 'multiple' => true,
             ))
-            ->add('recommend_level', 'choice', array(
-                'label' => 'おすすめレベル',
-                'choices' => array(
+            ->add('recommend_level', ChoiceType::class, array(
+                'label' => 'plugin.admin.product_review.list.level',
+                'choices' => array_flip([
                     '5' => '★★★★★',
                     '4' => '★★★★',
                     '3' => '★★★',
                     '2' => '★★',
                     '1' => '★',
-                ),
-                'empty_value' => '選択してください',
+                ]),
+                'placeholder' => 'plugin.admin.product_review.form.level',
                 'expanded' => false,
                 'multiple' => false,
+                'required' => false,
             ))
-            ->add('review_start', 'birthday', array(
-                'label' => '投稿日',
+            ->add('review_start', DateType::class, array(
+                'label' => 'plugin.admin.product_review.list.posted.date',
                 'required' => false,
                 'input' => 'datetime',
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
             ))
-            ->add('review_end', 'birthday', array(
-                'label' => '投稿日',
+            ->add('review_end', DateType::class, array(
+                'label' => 'plugin.admin.product_review.list.posted.date',
                 'required' => false,
                 'input' => 'datetime',
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
-                'empty_value' => array('year' => '----', 'month' => '--', 'day' => '--'),
             ))
-            ->add('status', 'disp', array(
-                'label' => '表示',
+            // fixme 商品レビュー用のステータスを作成する
+            ->add('status', ProductStatusType::class, array(
+                'label' => 'plugin.admin.product_review.search.multi',
                 'required' => false,
                 'expanded' => true,
                 'multiple' => true,
