@@ -14,7 +14,6 @@
 namespace Plugin\ProductReview;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Eccube\Application;
 use Eccube\Entity\Csv;
 use Eccube\Entity\Layout;
 use Eccube\Entity\Master\CsvType;
@@ -33,11 +32,11 @@ class PluginManager extends AbstractPluginManager
      * @var array
      */
     private $urls = [
-        'product_review_index' => 'レビューを投稿',
-        'product_review_complete' => 'レビューを投稿(完了)',
+        'product_review_index' => 'Gửi bình luận',
+        'product_review_complete' => 'Đăng một đánh giá',
     ];
 
-    public function enable($meta = null, Application $app = null, ContainerInterface $container)
+    public function enable(array $meta, ContainerInterface $container)
     {
         $em = $container->get('doctrine.orm.entity_manager');
 
@@ -66,7 +65,7 @@ class PluginManager extends AbstractPluginManager
         }
     }
 
-    public function uninstall($meta = null, Application $app = null, ContainerInterface $container)
+    public function uninstall(array $meta, ContainerInterface $container)
     {
         $em = $container->get('doctrine.orm.entity_manager');
 
@@ -76,6 +75,7 @@ class PluginManager extends AbstractPluginManager
         }
 
         $Config = $em->find(ProductReviewConfig::class, 1);
+
         $CsvType = $Config->getCsvType();
 
         // CSV出力項目設定を削除
@@ -112,7 +112,7 @@ class PluginManager extends AbstractPluginManager
 
         $Status = new ProductReviewStatus();
         $Status->setId(1);
-        $Status->setName('公開');
+        $Status->setName(trans('product_review.status.01'));
         $Status->setSortNo(1);
 
         $em->persist($Status);
@@ -120,7 +120,7 @@ class PluginManager extends AbstractPluginManager
 
         $Status = new ProductReviewStatus();
         $Status->setId(2);
-        $Status->setName('非公開');
+        $Status->setName(trans('product_review.status.02'));
         $Status->setSortNo(2);
 
         $em->persist($Status);
@@ -141,7 +141,7 @@ class PluginManager extends AbstractPluginManager
         $CsvType = new CsvType();
         $CsvType
             ->setId($result['id'])
-            ->setName('商品レビューCSV')
+            ->setName(trans('product_review.csv.title'))
             ->setSortNo($result['sort_no']);
         $em->persist($CsvType);
         $em->flush($CsvType);
@@ -153,7 +153,7 @@ class PluginManager extends AbstractPluginManager
     {
         $DeviceType = $em->find(DeviceType::class, DeviceType::DEVICE_TYPE_PC);
         $Page = new Page();
-        $Page->setDeviceType($DeviceType);
+//        $Page->setDeviceType($DeviceType);
         $Page->setEditType(Page::EDIT_TYPE_DEFAULT);
         $Page->setName($name);
         $Page->setUrl($url);
@@ -181,7 +181,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('Product')
             ->setReferenceFieldName('name')
-            ->setDispName('商品名')
+            ->setDispName(trans('product_review.admin.product_review_edit.product_name'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();
@@ -192,7 +192,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('Status')
             ->setReferenceFieldName('name')
-            ->setDispName('公開・非公開')
+            ->setDispName(trans('product_review.admin.product_review.th_status'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();
@@ -203,7 +203,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('create_date')
             ->setReferenceFieldName('create_date')
-            ->setDispName('投稿日')
+            ->setDispName(trans('product_review.admin.product_review_edit.posted_date'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();
@@ -214,7 +214,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('reviewer_name')
             ->setReferenceFieldName('reviewer_name')
-            ->setDispName('投稿者名')
+            ->setDispName(trans('product_review.admin.product_review.th_contributor'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();
@@ -225,7 +225,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('reviewer_url')
             ->setReferenceFieldName('reviewer_url')
-            ->setDispName('投稿者URL')
+            ->setDispName(trans('product_review.form.product_review.reviewer_url'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();
@@ -236,7 +236,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('Sex')
             ->setReferenceFieldName('name')
-            ->setDispName('性別')
+            ->setDispName(trans('admin.common.gender'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();
@@ -247,7 +247,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('recommend_level')
             ->setReferenceFieldName('recommend_level')
-            ->setDispName('おすすめレベル')
+            ->setDispName(trans('product_review.form.product_review.recommend_level'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();
@@ -258,7 +258,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('title')
             ->setReferenceFieldName('title')
-            ->setDispName('タイトル')
+            ->setDispName(trans('product_review.form.product_review.title'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();
@@ -269,7 +269,7 @@ class PluginManager extends AbstractPluginManager
             ->setEntityName('Plugin\ProductReview\Entity\ProductReview')
             ->setFieldName('comment')
             ->setReferenceFieldName('comment')
-            ->setDispName('コメント')
+            ->setDispName(trans('product_review.form.product_review.comment'))
             ->setSortNo($rank);
         $em->persist($Csv);
         $em->flush();

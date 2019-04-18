@@ -1,0 +1,9 @@
+{
+  "name": "ec-cube/ProductReview",
+  "version": "1.0.0",
+  "description": "ProductReview",
+  "type": "eccube-plugin",
+  "extra": {
+    "code": "ProductReview"
+  }
+}

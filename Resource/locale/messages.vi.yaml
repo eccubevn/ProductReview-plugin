@@ -1,0 +1,101 @@
+# Tin nhắn
+product_review.admin.save.complete: Đã đăng ký
+product_review.admin.save.error: Đăng ký thất bại
+product_review.admin.not_found: Không tìm thấy đánh giá sản phẩm
+product_review.admin.delete.complete: Đánh giá sản phẩm bị xóa
+product_review.admin.product.not_found: Không tìm thấy sản phẩm
+
+# Thường gặp
+product_review.common.required: Bắt buộc
+
+# Cài đặt màn hình
+product_review.admin.config.title: Xem lại cài đặt
+product_review.admin.config.sub_title: Danh sách tiện ích
+product_review.admin.config.config_title: Cài đặt
+product_review.admin.config.review_max: 'Số lượng đánh giá được hiển thị (%min%〜%max%)'
+product_review.admin.config.conversion.save: Đăng ký
+product_review.admin.config.conversion.back: Danh sách các tiện ích
+
+# Xem lại màn hình danh sách
+product_review.admin.product_review.title: Quản lý đánh giá
+product_review.admin.product_review.sub_title: Quản lý sản phẩm
+product_review.admin.product_review.search_detail: Tìm kiếm nâng cao
+product_review.admin.product_review.search_button: Tìm kiếm
+product_review.admin.product_review.search_clear: Xóa tiêu chí tìm kiếm
+product_review.admin.product_review.search_result_count: 'Kết quả tìm kiếm：%count% được tìm thấy'
+product_review.admin.product_review.search_multi: 'Tên / Website của người đăng'
+product_review.admin.product_review.search_product_name: Tên sản phẩm
+product_review.admin.product_review.search_product_code: Mã sản phẩm
+product_review.admin.product_review.search_posted_date: Ngày đăng
+product_review.admin.product_review.search_posted_date_start: Ngày đăng (bắt đầu)
+product_review.admin.product_review.search_posted_date_end: Ngày đăng (kết thúc)
+product_review.admin.product_review.search_sex: Giới tính
+product_review.admin.product_review.search_recommend_level: Mức đánh giá
+product_review.admin.product_review.search_review_status: 'Công khai / riêng tư'
+product_review.admin.product_review.search_no_result: Không tìm thấy dữ liệu phù hợp với tiêu chí tìm kiếm
+product_review.admin.product_review.search_invalid_condition: Có lỗi trong điều kiện tìm kiếm
+product_review.admin.product_review.search_change_condition_and_retry: Vui lòng thay đổi các điều kiện tìm kiếm và thử lại
+product_review.admin.product_review.search_try_detail_condition: 'Hãy thử [Tìm kiếm nâng cao]'
+product_review.admin.product_review.diaply_count: %count% mục
+product_review.admin.product_review.csv_download: Tải xuống CSV
+product_review.admin.product_review.csv_download_setting: Cài đặt mục đầu ra CSV
+product_review.admin.product_review.th_posted_date: Ngày đăng
+product_review.admin.product_review.th_contributor: Tên người đánh giá
+product_review.admin.product_review.th_product_name: Tên sản phẩm
+product_review.admin.product_review.th_title: Tiêu đề
+product_review.admin.product_review.th_level: Mức khuyến nghị sản phẩm
+product_review.admin.product_review.th_status: 'Công khai / riêng tư'
+product_review.admin.product_review.delete: Xóa
+product_review.admin.product_review.delete_cancel: Hủy
+product_review.admin.product_review.delete_confirm_title: Xóa đánh giá
+product_review.admin.product_review.delete_confirm_message: Bạn có chắc chắn muốn xóa nó không ?
+
+# Xem lại màn hình chỉnh sửa
+product_review.admin.product_review_edit.title: 'Đăng ký / Chỉnh sửa đánh giá'
+product_review.admin.product_review_edit.sub_title: Quản lý sản phẩm
+product_review.admin.product_review_edit.review_detail: Xem lại chi tiết
+product_review.admin.product_review_edit.product_name: Tên sản phẩm
+product_review.admin.product_review_edit.posted_date: Ngày đăng
+product_review.admin.product_review_edit.conversion.save: Đăng ký
+product_review.admin.product_review_edit.conversion.back: Quản lý đánh giá
+
+# Xem lại màn hình gửi
+product_review.front.review.title: Đăng đánh giá
+product_review.front.review.description: Chúng tôi rất mong chờ phản hồi của bạn về sản phẩm
+product_review.front.review.product_name: Tên sản phẩm
+product_review.front.review.back: Quay lại
+product_review.front.review.confirm: Xác nhận
+
+# Xem lại màn hình xác nhận
+product_review.front.review.confirm.description: '
+  Bạn có chắc chắn muốn gửi theo nội dung sau?
+  Nếu nó ổn, vui lòng nhấp vào nút "Gửi" ở phía dưới.'
+product_review.front.review.comfirm.post: Bài viết
+
+# Xem lại màn hình hoàn chỉnh
+product_review.front.review.complete.thanks: Cảm ơn bạn đã gửi bài đánh giá.
+product_review.front.review.complete.thanks_detail: '
+  Sau khi xác nhận nội dung, tôi sẽ phản ánh.
+  Xin vui lòng chờ trong giây lát.'
+product_review.front.review.complete.back: Quay lại sản phẩm
+
+# Mẫu đánh giá
+product_review.form.product_review.reviewer_name: Tên người đánh giá
+product_review.form.product_review.reviewer_url: Website
+product_review.form.product_review.title: Tiêu đề
+product_review.form.product_review.comment: Nhận xét
+product_review.form.product_review.recommend_level: Mức đánh giá
+
+# Chèn khối vào màn hình chi tiết sản phẩm
+product_review.front.product_detail.title: Đánh giá về sản phẩm này
+product_review.front.product_detail.no_review: Chưa có đánh giá nào
+product_review.front.product_detail.post_review: Đăng bài đánh giá
+product_review.front.product_detail.name: 'Ông/Bà %name%'
+
+product_review.status.01: 'Công khai'
+product_review.status.02: 'Riêng tư'
+product_review.csv.title: 'Đánh giá sản phẩm CSV'
+
+
+
+

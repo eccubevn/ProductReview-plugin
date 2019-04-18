@@ -59,11 +59,11 @@ class ProductReviewController extends AbstractController
 
     /**
      * @Route("/product_review/{id}/review", name="product_review_index", requirements={"id" = "\d+"})
+     * @Template("@ProductReview/default/index.twig")
      *
      * @param Request $request
      * @param Product $Product
-     *
-     * @return RedirectResponse|Response
+     * @return array|RedirectResponse|Response
      */
     public function index(Request $request, Product $Product)
     {
@@ -118,11 +118,11 @@ class ProductReviewController extends AbstractController
             }
         }
 
-        return $this->render('@ProductReview/default/index.twig', [
+        return [
             'Product' => $Product,
             'ProductReview' => $ProductReview,
             'form' => $form->createView(),
-        ]);
+        ];
     }
 
     /**

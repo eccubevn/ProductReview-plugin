@@ -24,7 +24,6 @@ use Plugin\ProductReview\Form\Type\Admin\ProductReviewSearchType;
 use Plugin\ProductReview\Form\Type\Admin\ProductReviewType;
 use Plugin\ProductReview\Repository\ProductReviewConfigRepository;
 use Plugin\ProductReview\Repository\ProductReviewRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -170,8 +169,7 @@ class ProductReviewController extends AbstractController
      * @Template("@ProductReview/admin/edit.twig")
      *
      * @param Request $request
-     * @param $id
-     *
+     * @param ProductReview $ProductReview
      * @return array|RedirectResponse
      */
     public function edit(Request $request, ProductReview $ProductReview)
@@ -207,14 +205,10 @@ class ProductReviewController extends AbstractController
     }
 
     /**
-     * Product review delete function.
+     * * Product review delete function.
+     * @Route("%eccube_admin_route%/product_review/{id}/delete", name="product_review_admin_product_review_delete", methods={"DELETE"})
      *
-     * @Method("DELETE")
-     * @Route("%eccube_admin_route%/product_review/{id}/delete", name="product_review_admin_product_review_delete")
-     *
-     * @param Request $request
-     * @param int $id
-     *
+     * @param ProductReview $ProductReview
      * @return RedirectResponse
      */
     public function delete(ProductReview $ProductReview)
@@ -236,9 +230,10 @@ class ProductReviewController extends AbstractController
      * @Route("%eccube_admin_route%/product_review/download", name="product_review_admin_product_review_download")
      *
      * @param Request $request
-     *
      * @return StreamedResponse
+     * @throws \Exception
      */
+
     public function download(Request $request)
     {
         // タイムアウトを無効にする.
@@ -296,7 +291,7 @@ class ProductReviewController extends AbstractController
         $response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
         $response->send();
 
-        log_info('商品レビューCSV出力ファイル名', [$filename]);
+        log_info('Product review CSV output file name', [$filename]);
 
         return $response;
     }

@@ -18,6 +18,7 @@ use Eccube\Entity\Product;
 use Eccube\Repository\AbstractRepository;
 use Eccube\Util\StringUtil;
 use Plugin\ProductReview\Entity\ProductReview;
+use Plugin\ProductReview\Entity\ProductReviewStatus;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -137,7 +138,8 @@ class ProductReviewRepository extends AbstractRepository
                 ->select('avg(r.recommend_level) as recommend_avg, count(r.id) as review_count')
                 ->leftJoin('r.Product', 'p')
                 ->where('r.Product = :Product')
-                ->setParameter('Product', $Product)
+                ->andWhere("r.Status = :statusActive")
+                ->setParameters(['Product' => $Product, 'statusActive' => ProductReviewStatus::SHOW])
                 ->groupBy('r.Product');
 
             return $qb->getQuery()->getSingleResult();

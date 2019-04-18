@@ -13,10 +13,10 @@
 
 namespace Plugin\ProductReview;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Eccube\Entity\Product;
 use Eccube\Event\TemplateEvent;
 use Eccube\Repository\Master\ProductStatusRepository;
-use Plugin\ProductReview\Entity\ProductReview;
 use Plugin\ProductReview\Entity\ProductReviewStatus;
 use Plugin\ProductReview\Repository\ProductReviewConfigRepository;
 use Plugin\ProductReview\Repository\ProductReviewRepository;
@@ -35,6 +35,11 @@ class ProductReviewEvent implements EventSubscriberInterface
     protected $productReviewRepository;
 
     /**
+     * @var ProductStatusRepository
+     */
+    protected $productStatusRepository;
+
+    /**
      * ProductReview constructor.
      *
      * @param ProductReviewConfigRepository $productReviewConfigRepository
@@ -44,8 +49,8 @@ class ProductReviewEvent implements EventSubscriberInterface
     public function __construct(
         ProductReviewConfigRepository $productReviewConfigRepository,
         ProductStatusRepository $productStatusRepository,
-        ProductReviewRepository $productReviewRepository)
-    {
+        ProductReviewRepository $productReviewRepository
+    ) {
         $this->productReviewConfigRepository = $productReviewConfigRepository;
         $this->productStatusRepository = $productStatusRepository;
         $this->productReviewRepository = $productReviewRepository;
@@ -76,7 +81,7 @@ class ProductReviewEvent implements EventSubscriberInterface
 
         $qb = $this->productReviewRepository->getQueryBuilderBySearchData($searchData);
         $qb->setMaxResults($Config->getReviewMax());
-        $ProductReviews = $qb->getQuery()->getResult();
+        $ProductReviews = new Paginator($qb);
 
         /** @var Product $Product */
         $Product = $event->getParameter('Product');

@@ -30,8 +30,7 @@ class ConfigController extends \Eccube\Controller\AbstractController
      *
      * @param Request $request
      * @param ProductReviewConfigRepository $configRepository
-     *
-     * @return array
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function index(Request $request, ProductReviewConfigRepository $configRepository)
     {
